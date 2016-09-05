@@ -15,17 +15,29 @@ spec:
         service: mysql
     spec:
       containers:
-      - env:
-        - name: MYSQL_USER
-          value: blog-user
-        - name: MYSQL_PASSWORD
-          value: supersecret
-        - name: MYSQL_ROOT_PASSWORD
-          value: root
-        - name: MYSQL_DATABASE
-          value: db
+      - name: mysql
         image: mysql:5.7.12
-        name: mysql
+        env:
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: root-password
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: user
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: mysql-config
+              key: database
         ports:
         - containerPort: 3306
           protocol: TCP
@@ -38,3 +50,5 @@ spec:
         gcePersistentDisk:
           pdName: mysql-volume
           fsType: ext4
+      #  - name: mysql-volume
+      #    emptyDir:

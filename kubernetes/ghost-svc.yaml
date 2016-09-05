@@ -6,7 +6,7 @@ metadata:
   name: ghost
 spec:
   ports:
-  - name: "2368"
+  - name: "http"
     port: 2368
     protocol: TCP
     targetPort: 2368
