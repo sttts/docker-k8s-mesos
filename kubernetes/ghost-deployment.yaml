@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    service: ghost
+  name: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: ghost
+  template:
+    metadata:
+      labels:
+        service: ghost
+    spec:
+      containers:
+      - env:
+        - name: CLOUDINARY_URL
+          value: cloudinary://578666321948431:KvmIEtZELPkSCPMhuf-cJsUWa_8@dkt6e9jwp
+        image: scheele/my-ghost:1.0
+        name: ghost
+        ports:
+        - containerPort: 2368
+          protocol: TCP
+      restartPolicy: Always

@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    service: mysql
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mysql
+  template:
+    metadata:
+      labels:
+        service: mysql
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_USER
+          value: blog-user
+        - name: MYSQL_PASSWORD
+          value: supersecret
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_DATABASE
+          value: db
+        image: mysql:5.7.12
+        name: mysql
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-volume
+      restartPolicy: Always
+      volumes:
+      - name: mysql-volume
+        gcePersistentDisk:
+          pdName: mysql-volume
+          fsType: ext4
