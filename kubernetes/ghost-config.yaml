@@ -4,3 +4,4 @@ metadata:
   name: ghost-config
 data:
   node-env: production
+  ghost-url: http://130.211.7.223
