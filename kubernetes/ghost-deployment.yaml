@@ -28,6 +28,11 @@ spec:
             configMapKeyRef:
               name: ghost-config
               key: node-env
+        - name: GHOST_URL
+          valueFrom:
+            configMapKeyRef:
+              name: ghost-config
+              key: ghost-url
         ports:
         - containerPort: 2368
           protocol: TCP
