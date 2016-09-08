@@ -47,8 +47,5 @@ spec:
       restartPolicy: Always
       volumes:
       - name: mysql-volume
-        gcePersistentDisk:
-          pdName: mysql-volume
-          fsType: ext4
-      #  - name: mysql-volume
-      #    emptyDir:
+        persistentVolumeClaim:
+          claimName: mysql
