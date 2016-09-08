@@ -5,6 +5,7 @@ metadata:
     service: ghost
   name: ghost
 spec:
+  type: NodePort
   ports:
   - name: "http"
     port: 2368
