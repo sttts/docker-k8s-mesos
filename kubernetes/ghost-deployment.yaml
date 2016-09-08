@@ -31,4 +31,11 @@ spec:
         ports:
         - containerPort: 2368
           protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 2368
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 10
       restartPolicy: Always
